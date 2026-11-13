@@ -1,0 +1,4 @@
+# Guarda los textos con fin de línea LF en GitHub (Windows los muestra igual)
+* text=auto
+# Los .bat de Windows necesitan CRLF para funcionar
+*.bat text eol=crlf

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BELABARBERÍA | Turnos online</title>
+  <meta name="description" content="Experimenta el mejor servicio de barbería tradicional y moderna. Reserva tu turno online con nuestros maestros barberos.">
+  
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/styles/variables.css">
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <link rel="stylesheet" href="/src/styles/components.css">
+  <link rel="stylesheet" href="/src/styles/sections.css">
+</head>
+<body>
+
+  <!-- Supabase Missing Env Banner (se oculta automáticamente si está configurado) -->
+  <div id="env-warning-banner" class="hidden" style="background: #2a1f0a; border-bottom: 2px solid var(--gold-primary); padding: 0.75rem 1.5rem; text-align: center; font-size: 0.88rem; color: #fde68a;">
+    ⚙️ <strong>Atención:</strong> Supabase no está configurado. Completá <code>VITE_SUPABASE_URL</code> y <code>VITE_SUPABASE_PUBLISHABLE_KEY</code> en el archivo <code>.env</code> (solo la clave pública, nunca la service_role).
+  </div>
+
+  <!-- Barra de Navegación -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-icon">✂</span>
+        <span>BELA<span class="text-gold">BARBERÍA</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active">Inicio</a></li>
+          <li><a href="#services" class="nav-link">Servicios</a></li>
+          <li><a href="#barbers" class="nav-link">Barberos</a></li>
+          <li><a href="#booking" class="nav-link">Reservar</a></li>
+          <li id="nav-item-appointments" class="hidden"><a href="#my-appointments" class="nav-link">Mis Turnos</a></li>
+          <li id="nav-item-agenda" class="hidden"><a href="#barber-agenda" class="nav-link text-gold" style="font-weight: 700;">Mi Agenda</a></li>
+          <li id="nav-item-admin" class="hidden"><a href="#admin" class="nav-link text-gold" style="font-weight: 700;">★ Panel Admin</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Botones para usuarios no autenticados -->
+        <div id="nav-guest-actions" style="display: flex; gap: 0.5rem;">
+          <button id="btn-open-login" class="btn btn-outline-gold btn-sm">Ingresar</button>
+          <button id="btn-open-register" class="btn btn-gold btn-sm">Registrarse</button>
+        </div>
+
+        <!-- Usuario Autenticado -->
+        <div id="nav-user-actions" class="hidden" style="display: flex; align-items: center; gap: 0.75rem;">
+          <a href="#profile" class="user-badge-nav" title="Ver mi perfil">
+            <img id="nav-user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar-sm">
+            <span id="nav-user-name" style="font-size: 0.85rem; font-weight: 600;">Usuario</span>
+          </a>
+          <button id="btn-signout" class="btn btn-dark btn-sm" title="Cerrar sesión">Salir</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="container">
+      <p class="hero-subtitle">Turnos online · Sin llamadas · Sin esperas</p>
+      <h1 class="hero-title">El arte del corte perfecto y el cuidado de tu barba</h1>
+      <p class="hero-description">
+        En BELABARBERÍA reservás tu turno online: elegís servicio, barbero y un horario libre, y recibís avisos de cada cambio.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#booking" class="btn btn-gold">Reservar Turno Ahora</a>
+        <a href="#services" class="btn btn-outline-gold">Ver Servicios & Precios</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Sección Servicios -->
+  <section id="services" class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Nuestra Carta</p>
+        <h2 class="section-title">Servicios & Tarifas</h2>
+        <p class="section-desc">Servicios, duración y precio cargados por la barbería. Iniciá sesión para verlos.</p>
+      </div>
+
+      <div id="services-list-container" class="services-grid">
+        <!-- Renderizado dinámicamente desde Supabase -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Barberos -->
+  <section id="barbers" class="section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Maestros Artesanos</p>
+        <h2 class="section-title">Conoce a Nuestro Equipo</h2>
+        <p class="section-desc">Profesionales dedicados a la precisión, la técnica y la atención al más mínimo detalle.</p>
+      </div>
+
+      <div id="barbers-list-container" class="barbers-grid">
+        <!-- Renderizado dinámicamente desde Supabase -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Reservar Turno -->
+  <section id="booking" class="section" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Online Booking</p>
+        <h2 class="section-title">Agenda Tu Turno</h2>
+        <p class="section-desc">Selecciona tu barbero de confianza, el servicio deseado y el horario que mejor se adapte a tu día.</p>
+      </div>
+
+      <div class="booking-panel">
+        <form id="booking-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="book-barbero">Barbero de Preferencia *</label>
+              <select id="book-barbero" class="form-select" required>
+                <option value="">Cargando barberos...</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="book-servicio">Servicio *</label>
+              <select id="book-servicio" class="form-select" required>
+                <option value="">Cargando servicios...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="book-fecha">Fecha del Turno *</label>
+            <input type="date" id="book-fecha" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Horario Disponible *</label>
+            <div id="book-time-slots" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem; margin-top: 0.25rem;">
+              <!-- Botones de horarios -->
+            </div>
+          </div>
+
+          <!-- Resumen con precio y duración calculada -->
+          <div class="price-summary-box">
+            <div>
+              <span class="label">Duración estimada: <strong id="booking-duration-display" style="color: var(--text-primary);">0 min</strong></span>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;">Tarifa estimada sujeta al servicio</div>
+            </div>
+            <div class="value" id="booking-price-display">$0</div>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width: 100%;">
+            Confirmar Reserva
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Mis Turnos (Visible para usuarios autenticados) -->
+  <section id="my-appointments" class="section hidden">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Gestión Personal</p>
+        <h2 class="section-title">Mis Turnos</h2>
+        <p class="section-desc">Revisá el estado de tus reservas. Podés cancelar un turno hasta 24 horas antes de su inicio.</p>
+      </div>
+
+      <!-- Filtros de estado -->
+      <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <button class="btn btn-dark btn-sm filter-appointment-btn active" data-filter="ALL">Todos</button>
+        <button class="btn btn-dark btn-sm filter-appointment-btn" data-filter="PENDIENTE">Pendientes</button>
+        <button class="btn btn-dark btn-sm filter-appointment-btn" data-filter="CONFIRMADO">Confirmados</button>
+        <button class="btn btn-dark btn-sm filter-appointment-btn" data-filter="CANCELADO">Cancelados</button>
+        <button class="btn btn-dark btn-sm filter-appointment-btn" data-filter="FINALIZADO">Finalizados</button>
+      </div>
+
+      <div id="my-appointments-list" style="max-width: 800px; margin: 0 auto;">
+        <!-- Renderizado dinámicamente -->
+      </div>
+
+      <div id="my-appointments-empty" class="hidden" style="text-align: center; padding: 3rem; background: var(--bg-card); border-radius: var(--radius-md); max-width: 800px; margin: 0 auto;">
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">No tienes turnos registrados con este filtro.</p>
+        <a href="#booking" class="btn btn-outline-gold btn-sm">Reservar Nuevo Turno</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Agenda del Barbero (solo rol BARBERO) -->
+  <section id="barber-agenda" class="section hidden">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Agenda Profesional</p>
+        <h2 class="section-title">Mis Turnos Asignados</h2>
+        <p class="section-desc">Confirmá, finalizá o cancelá los turnos que te reservaron.</p>
+      </div>
+
+      <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <button class="btn btn-dark btn-sm filter-agenda-btn active" data-filter="PROXIMOS">Próximos</button>
+        <button class="btn btn-dark btn-sm filter-agenda-btn" data-filter="TODOS">Todos</button>
+      </div>
+
+      <div id="barber-agenda-list" style="max-width: 800px; margin: 0 auto;"></div>
+    </div>
+  </section>
+
+  <!-- Sección Mi Perfil -->
+  <section id="profile" class="section hidden" style="background: var(--bg-surface);">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag">Cuenta de Usuario</p>
+        <h2 class="section-title">Mi Perfil</h2>
+        <p class="section-desc">Actualiza tus datos de contacto y tu foto de perfil almacenada en Supabase Storage.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-avatar-header">
+          <img id="profile-avatar-img" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80" alt="Avatar de Perfil" class="profile-avatar-preview">
+          
+          <input type="file" id="profile-avatar-input" accept="image/*" class="hidden">
+          <button type="button" id="btn-trigger-avatar-upload" class="btn btn-outline-gold btn-sm">
+            Cambiar Foto
+          </button>
+          
+          <div style="margin-top: 0.5rem; text-align: center;">
+            <span id="profile-role-badge" class="badge badge-role">USUARIO</span>
+            <p id="profile-email-display" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">usuario@email.com</p>
+          </div>
+        </div>
+
+        <form id="profile-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="profile-nombre">Nombre</label>
+              <input type="text" id="profile-nombre" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="profile-apellido">Apellido</label>
+              <input type="text" id="profile-apellido" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="profile-telefono">Teléfono / WhatsApp</label>
+            <input type="tel" id="profile-telefono" class="form-input" placeholder="+54 9 11 ...">
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 1rem;">
+            Guardar Cambios
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Panel Administrador (Solo visible para rol ADMIN) -->
+  <section id="admin" class="section hidden">
+    <div class="container">
+      <div class="admin-header">
+        <div>
+          <p class="section-tag text-gold">Control Total</p>
+          <h2 class="section-title">Panel de Administración</h2>
+        </div>
+
+        <div class="admin-subnav">
+          <button type="button" class="admin-tab-btn active" data-tab="turnos">Turnos</button>
+          <button type="button" class="admin-tab-btn" data-tab="servicios">Servicios</button>
+          <button type="button" class="admin-tab-btn" data-tab="barberos">Barberos</button>
+          <button type="button" class="admin-tab-btn" data-tab="horarios">Horarios</button>
+          <button type="button" class="admin-tab-btn" data-tab="usuarios">Usuarios</button>
+        </div>
+      </div>
+
+      <!-- 1. Panel Turnos (Admin) -->
+      <div id="admin-panel-turnos" class="admin-panel-content">
+        <div class="appointments-table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Barbero</th>
+                <th>Fecha & Hora</th>
+                <th>Cambiar Estado</th>
+                <th>Estado Actual</th>
+              </tr>
+            </thead>
+            <tbody id="admin-turnos-table-body">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. Panel Servicios (Admin) -->
+      <div id="admin-panel-servicios" class="admin-panel-content hidden">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+          <button id="btn-admin-new-service" class="btn btn-gold btn-sm">+ Nuevo Servicio</button>
+        </div>
+        <div class="appointments-table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Duración</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-servicios-table-body">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3. Panel Barberos (Admin) -->
+      <div id="admin-panel-barberos" class="admin-panel-content hidden">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+          <button id="btn-admin-new-barber" class="btn btn-gold btn-sm">+ Nuevo Barbero</button>
+        </div>
+        <div class="appointments-table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Nombre y Apellido</th>
+                <th>Especialidad</th>
+                <th>Cuenta</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-barberos-table-body">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4. Panel Horarios (Admin) -->
+      <div id="admin-panel-horarios" class="admin-panel-content hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <p style="font-size: 0.85rem; color: var(--text-secondary); max-width: 560px;">Franjas de atención de cada barbero. Los clientes solo pueden reservar dentro de estas franjas.</p>
+          <button id="btn-admin-new-horario" class="btn btn-gold btn-sm">+ Nueva Franja</button>
+        </div>
+        <div class="appointments-table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Barbero</th>
+                <th>Día</th>
+                <th>Horario</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-horarios-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5. Panel Usuarios (Admin) -->
+      <div id="admin-panel-usuarios" class="admin-panel-content hidden">
+        <div class="appointments-table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Alta</th>
+              </tr>
+            </thead>
+            <tbody id="admin-usuarios-table-body">
+              <!-- Renderizado dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 3rem;">
+        <div>
+          <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: #fff;">BELA<span class="text-gold">BARBERÍA</span></h3>
+          <p style="font-size: 0.9rem; line-height: 1.6;">Sistema de turnos para barbería: web, app móvil y API REST.</p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #fff;">Horarios de Atención</h4>
+          <p style="font-size: 0.9rem;">Consultá los horarios disponibles de cada barbero al reservar tu turno.</p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; margin-bottom: 1rem; color: #fff;">Ubicación & Contacto</h4>
+          <p style="font-size: 0.9rem;">Los datos de contacto los carga el administrador desde la app (sección Barbería).</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 BELABARBERÍA. Proyecto escolar — Construcción de Software.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODALES ================= -->
+
+  <!-- Modal de Autenticación (Login / Registro / Recuperación / Cambio Contraseña) -->
+  <div id="auth-modal-overlay" class="modal-overlay">
+    <div class="modal-box">
+      <button id="auth-modal-close" class="modal-close">&times;</button>
+
+      <div class="tabs-nav">
+        <button id="tab-to-login" class="tab-btn active">Iniciar Sesión</button>
+        <button id="tab-to-register" class="tab-btn">Registrarse</button>
+      </div>
+
+      <!-- Formulario Login -->
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Correo Electrónico *</label>
+          <input type="email" id="login-email" class="form-input" required placeholder="tu@email.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Contraseña *</label>
+          <input type="password" id="login-password" class="form-input" required placeholder="••••••••">
+        </div>
+
+        <div style="text-align: right; margin-bottom: 1.25rem;">
+          <a href="#" id="link-forgot-password" style="font-size: 0.8rem; color: var(--gold-primary);">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Iniciar Sesión
+        </button>
+
+        <div style="text-align: center; margin: 1.25rem 0; font-size: 0.8rem; color: var(--text-muted); position: relative;">
+          <span style="background: var(--bg-surface); padding: 0 0.5rem; position: relative; z-index: 1;">o continuar con</span>
+          <hr style="position: absolute; top: 50%; left: 0; right: 0; border: none; border-top: 1px solid var(--border-subtle); margin: 0;">
+        </div>
+
+        <button type="button" id="btn-google-login" class="btn btn-dark" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.4 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7s.1-2 .4-2.7L1.6 6.4C.6 8.3 0 10.4 0 12.7s.6 4.4 1.6 6.3l3.7-4.3z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.4-6.7-5.3L1.6 17c1.9 3.8 5.8 7 10.4 7z"/></svg>
+          Continuar con Google
+        </button>
+      </form>
+
+      <!-- Formulario Registro -->
+      <form id="register-form" class="hidden">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="reg-nombre">Nombre *</label>
+            <input type="text" id="reg-nombre" class="form-input" required placeholder="Juan">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-apellido">Apellido *</label>
+            <input type="text" id="reg-apellido" class="form-input" required placeholder="Pérez">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-telefono">Teléfono / Celular</label>
+          <input type="tel" id="reg-telefono" class="form-input" placeholder="+54 9 11 ...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Correo Electrónico *</label>
+          <input type="email" id="reg-email" class="form-input" required placeholder="tu@email.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Contraseña *</label>
+          <input type="password" id="reg-password" class="form-input" required placeholder="Mínimo 6 caracteres">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm-password">Confirmar Contraseña *</label>
+          <input type="password" id="reg-confirm-password" class="form-input" required placeholder="Repite la contraseña">
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Crear Cuenta
+        </button>
+
+        <div style="text-align: center; margin: 1.25rem 0; font-size: 0.8rem; color: var(--text-muted); position: relative;">
+          <span style="background: var(--bg-surface); padding: 0 0.5rem; position: relative; z-index: 1;">o continuar con</span>
+          <hr style="position: absolute; top: 50%; left: 0; right: 0; border: none; border-top: 1px solid var(--border-subtle); margin: 0;">
+        </div>
+
+        <button type="button" id="btn-google-register" class="btn btn-dark" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.4 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7s.1-2 .4-2.7L1.6 6.4C.6 8.3 0 10.4 0 12.7s.6 4.4 1.6 6.3l3.7-4.3z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.4-6.7-5.3L1.6 17c1.9 3.8 5.8 7 10.4 7z"/></svg>
+          Registrarse con Google
+        </button>
+      </form>
+
+      <!-- Formulario Recuperar Contraseña -->
+      <form id="forgot-form" class="hidden">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Recuperar Contraseña</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Ingresa el email registrado y te enviaremos un enlace para restablecer tu contraseña con Supabase Auth.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="forgot-email">Correo Electrónico</label>
+          <input type="email" id="forgot-email" class="form-input" required placeholder="tu@email.com">
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Enviar Enlace
+        </button>
+
+        <div style="text-align: center; margin-top: 1rem;">
+          <a href="#" id="link-back-to-login" style="font-size: 0.85rem; color: var(--gold-primary);">&larr; Volver al inicio de sesión</a>
+        </div>
+      </form>
+
+      <!-- Formulario Actualizar Contraseña (Cuando viene de reset email) -->
+      <form id="update-password-form" class="hidden">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Establecer Nueva Contraseña</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Escribe tu nueva clave para actualizar tu cuenta.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label" for="update-new-password">Nueva Contraseña</label>
+          <input type="password" id="update-new-password" class="form-input" required placeholder="Mínimo 6 caracteres">
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Guardar Contraseña
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Modal para Crear / Editar Servicios y Barberos (Admin CRUD) -->
+  <div id="admin-crud-modal" class="modal-overlay">
+    <div class="modal-box">
+      <button id="admin-crud-modal-close" class="modal-close">&times;</button>
+      <h3 id="admin-crud-modal-title" style="font-size: 1.3rem; margin-bottom: 1.5rem;">Gestión</h3>
+
+      <form id="admin-crud-modal-form">
+        <div id="admin-crud-modal-fields">
+          <!-- Insertados dinámicamente según sea servicio o barbero -->
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-dark" onclick="document.getElementById('admin-crud-modal').classList.remove('active')">Cancelar</button>
+          <button type="submit" class="btn btn-gold">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Contenedor global de Toasts -->
+  <div id="toast-container"></div>
+
+  <!-- Entry Script -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

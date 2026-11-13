@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Capas de elevación</title>
+<style>
+  /* Diagrama de las 4 capas de elevación de la app (valores reales de mobile/src/paletas.js y elevacion() en ui.js).
+     Vista "explotada" en perspectiva: es un diagrama explicativo, no una captura. */
+  body { margin: 0; background: #F6F3EE; font-family: Inter, Arial, sans-serif; color: #161412; }
+  .lienzo { width: 1200px; height: 760px; position: relative; overflow: hidden; }
+  .escena { position: absolute; left: 30px; top: 60px; width: 600px; height: 680px; perspective: 1800px; perspective-origin: 50% 0%; }
+  .pila { position: absolute; left: 150px; top: 230px; width: 300px; height: 420px; transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(-38deg); }
+  .plano { position: absolute; inset: 0; border-radius: 26px; transform-style: preserve-3d; }
+  .plano .n { position: absolute; left: -16px; top: -16px; width: 32px; height: 32px; border-radius: 16px; background: #161412; color: #F2EFEA; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .p0 { background: #111111; transform: translateZ(0); box-shadow: 0 0 0 1px #2a2a2a; }
+  .p1 { transform: translateZ(95px); outline: 2px dashed rgba(22,20,18,.35); }
+  .p2 { transform: translateZ(190px); outline: 2px dashed rgba(22,20,18,.35); }
+  .p3 { transform: translateZ(285px); outline: 2px dashed rgba(22,20,18,.35); }
+  .el { position: absolute; border-radius: 14px; }
+  .tarjeta { background: #1B1B1B; box-shadow: 0 2px 6px rgba(0,0,0,.45), 0 0 0 1px #333; left: 20px; width: 260px; height: 90px; }
+  .barra { background: #1B1B1B; box-shadow: 0 6px 12px rgba(0,0,0,.55), 0 0 0 1px #3a3a3a; left: 0; top: 360px; width: 300px; height: 60px; border-radius: 0 0 26px 26px; }
+  .sel { background: #C5A880; box-shadow: 0 6px 12px rgba(0,0,0,.45); left: 30px; top: 40px; width: 70px; height: 50px; border-radius: 12px; }
+  .hoja { background: #111111; box-shadow: 0 10px 20px rgba(0,0,0,.7), 0 0 0 1px #4a4a4a; left: 0; top: 170px; width: 300px; height: 250px; border-radius: 24px 24px 26px 26px; }
+  .hoja::before { content: ""; position: absolute; left: 128px; top: 10px; width: 44px; height: 5px; border-radius: 3px; background: #7A756D; }
+  .velo { position: absolute; inset: 0; border-radius: 26px; background: rgba(0,0,0,.55); }
+  .aviso { background: #303030; box-shadow: 0 10px 20px rgba(0,0,0,.6), 0 0 0 1px #444; left: 20px; top: 96px; width: 260px; height: 48px; border-radius: 14px; }
+  .rotulo { position: absolute; left: 640px; width: 520px; }
+  .rotulo .n { display: inline-flex; width: 34px; height: 34px; border-radius: 17px; align-items: center; justify-content: center; font-weight: 800; background: #161412; color: #F2EFEA; margin-right: 10px; vertical-align: middle; }
+  .rotulo b { font-size: 19px; vertical-align: middle; }
+  .rotulo p { margin: 6px 0 0 44px; font-size: 15px; line-height: 1.4; color: #3d3833; }
+  .rotulo code { background: #EDE8E0; padding: 0 4px; border-radius: 4px; font-size: 13px; }
+  h1 { position: absolute; left: 40px; top: 10px; font-size: 24px; margin: 14px 0; }
+  .pie { position: absolute; left: 40px; bottom: 14px; font-size: 13px; color: #55504A; }
+</style></head>
+<body><div class="lienzo">
+  <h1>Capas de elevación de BELABARBERÍA (modo oscuro)</h1>
+  <div class="escena"><div class="pila">
+    <div class="plano p0"><span class="n">0</span></div>
+    <div class="plano p1"><span class="n">1</span><div class="el tarjeta" style="top:40px"></div><div class="el tarjeta" style="top:150px"></div><div class="el tarjeta" style="top:260px"></div></div>
+    <div class="plano p2"><span class="n">2</span><div class="el sel"></div><div class="el barra"></div></div>
+    <div class="plano p3"><span class="n">3</span><div class="velo"></div><div class="el aviso"></div><div class="el hoja"></div></div>
+  </div></div>
+  <div class="rotulo" style="top:90px"><span class="n">3</span><b>Hojas, modales y avisos</b>
+    <p>Sombra radio 20, desplazamiento 10, la más grande. La hoja inferior usa el fondo <code>#111111</code> y se separa del contenido con un velo oscuro detrás (65 %), así sus tarjetas siguen "subiendo". Los avisos breves usan <code>#303030</code>, la superficie más clara.</p></div>
+  <div class="rotulo" style="top:250px"><span class="n">2</span><b>Barra inferior y selección</b>
+    <p>Barra inferior <code>#1B1B1B</code> y selección champán <code>#C5A880</code> · sombra radio 12, desplazamiento 6. Lo elegido (día, hora) y el próximo turno "suben" un nivel.</p></div>
+  <div class="rotulo" style="top:410px"><span class="n">1</span><b>Tarjetas</b>
+    <p>Superficie <code>#1B1B1B</code> · sombra radio 6, desplazamiento 2. Turnos, servicios, barberos y accesos.</p></div>
+  <div class="rotulo" style="top:550px"><span class="n">0</span><b>Fondo</b>
+    <p>Negro cálido <code>#111111</code>, sin sombra. No es negro puro para que las sombras se sigan viendo.</p></div>
+  <div class="pie">Diagrama explicativo en perspectiva (vista explotada). Valores tomados de <i>mobile/src/paletas.js</i> y de la función <i>elevacion()</i> de <i>mobile/src/ui.js</i>.</div>
+</div></body></html>

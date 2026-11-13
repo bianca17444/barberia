@@ -1,41 +1,38 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# ============================================================
+# Qué NO se sube a GitHub
+# ============================================================
 
-# dependencies
+# Librerías (se instalan con npm install) y archivos que se generan solos
 node_modules/
-
-# Expo
 .expo/
 dist/
 web-build/
-expo-env.d.ts
+*.log
+.metro-health-check*
 
-# Native
-.kotlin/
-*.orig.*
+# Copias de seguridad locales
+_respaldo_*/
+
+# Claves y configuración local: nunca se suben (hay archivos .env.example de modelo)
+.env
+.env.*
+!.env.example
+*.local
+.vercel/
+
+# El APK pesa unos 70 MB: se descarga desde https://belabarberia.vercel.app
+landing/descargas/*.apk
+
+# Archivos de configuración de herramientas y del sistema
+.claude/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos sensibles de compilación (firmas y certificados)
 *.jks
 *.p8
 *.p12
 *.key
-*.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
 *.pem
-
-# local env files
-.env*.local
-
-# typescript
-*.tsbuildinfo
-
-# generated native folders
-/ios
-/android
+*.mobileprovision

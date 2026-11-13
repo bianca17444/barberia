@@ -1,0 +1,19 @@
+{
+  "name": "belabarberia-api",
+  "version": "1.0.0",
+  "description": "API REST de BELABARBERÍA (Node.js + Express + Supabase)",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/index.js",
+    "start": "node --env-file-if-exists=.env src/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}

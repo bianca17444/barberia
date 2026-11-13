@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "BELABARBERÍA",
+    "slug": "barberia-imperial",
+    "version": "1.0.0",
+    "scheme": "barberiaimperial",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.barberia.imperial",
+      "adaptiveIcon": {
+        "backgroundColor": "#111111",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "permissions": [
+        "POST_NOTIFICATIONS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-asset",
+      "expo-font",
+      "expo-web-browser",
+      [
+        "expo-notifications",
+        {
+          "color": "#C5A880"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "BELABARBERÍA usa tus fotos para tu imagen de perfil.",
+          "cameraPermission": "BELABARBERÍA usa la cámara para sacar tu foto de perfil."
+        }
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "BELABARBERÍA usa Face ID para que solo vos puedas abrir tu cuenta."
+        }
+      ],
+      "expo-status-bar"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "377e5936-aea4-4a58-87cb-b4dd8652e8c5"
+      }
+    }
+  }
+}

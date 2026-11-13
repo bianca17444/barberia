@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "express": "npm:express@4.21.2",
+    "cors": "npm:cors@2.8.5",
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2.49.1"
+  }
+}

@@ -1,0 +1,59 @@
+:root {
+  /* Color Palette - Dark Luxury Barbershop */
+  --bg-main: #0c0e12;
+  --bg-surface: #141720;
+  --bg-card: #181d28;
+  --bg-card-hover: #1f2533;
+  --bg-input: #10131b;
+  --bg-modal: rgba(12, 14, 18, 0.88);
+
+  /* Gold Accents */
+  --gold-primary: #d4af37;
+  --gold-hover: #e5c158;
+  --gold-dark: #b29026;
+  --gold-glow: rgba(212, 175, 55, 0.25);
+  --gold-subtle: rgba(212, 175, 55, 0.1);
+
+  /* Neutrals & Text */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #64748b;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-gold: rgba(212, 175, 55, 0.35);
+
+  /* State Badges */
+  --status-pending-bg: rgba(245, 158, 11, 0.15);
+  --status-pending-text: #fbbf24;
+  --status-pending-border: rgba(245, 158, 11, 0.3);
+
+  --status-confirmed-bg: rgba(16, 185, 129, 0.15);
+  --status-confirmed-text: #34d399;
+  --status-confirmed-border: rgba(16, 185, 129, 0.3);
+
+  --status-cancelled-bg: rgba(239, 68, 68, 0.15);
+  --status-cancelled-text: #f87171;
+  --status-cancelled-border: rgba(239, 68, 68, 0.3);
+
+  --status-finished-bg: rgba(99, 102, 241, 0.15);
+  --status-finished-text: #818cf8;
+  --status-finished-border: rgba(99, 102, 241, 0.3);
+
+  /* Typography */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Shadows & Glassmorphism */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-gold: 0 6px 25px rgba(212, 175, 55, 0.2);
+
+  /* Layout */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --max-width: 1240px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}

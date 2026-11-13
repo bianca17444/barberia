@@ -1,0 +1,56 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#333}
+.fila{display:flex;gap:28px;padding:28px}
+.tel{width:260px;height:540px;border:2px solid #333;border-radius:26px;padding:16px 14px;box-sizing:border-box;position:relative;display:flex;flex-direction:column;gap:8px}
+h2{font-size:13px;margin:0 0 6px;text-transform:uppercase;letter-spacing:.5px}
+.b{border:1.5px solid #888;border-radius:8px;padding:6px 8px;font-size:11px;background:#f2f2f2}
+.d{border:1.5px dashed #888;border-radius:8px;padding:6px 8px;font-size:11px}
+.x{background:repeating-linear-gradient(45deg,#ddd 0 6px,#f6f6f6 6px 12px)}
+.r{display:flex;gap:6px}.r>*{flex:1}
+.n{position:absolute;left:0;right:0;bottom:0;height:42px;border-top:1.5px solid #888;display:flex;justify-content:space-around;align-items:center;font-size:10px}
+.t{font-size:16px;font-weight:bold}.s{font-size:10px;color:#666}
+.p{display:inline-block;border:1.5px solid #888;border-radius:14px;padding:3px 8px;font-size:10px;margin:0 3px 3px 0}
+.k{text-decoration:line-through;border-style:dashed}
+</style></head><body><div class="fila">
+<div><h2>A. Inicio (cliente)</h2><div class="tel">
+<div class="t">Hola, nombre</div>
+<div class="b" style="height:70px">PRÓXIMO TURNO · fecha · hora<br>servicio con barbero<br><b>[ Faltan 02h 17m ]</b></div>
+<div class="r"><div class="b">Reservar</div><div class="b">Mis turnos</div><div class="b">Asistente</div></div>
+<div class="s">Avisos</div><div class="b">aviso · ●</div>
+<div class="s">Te recomendamos</div><div class="b">( ) Barbero — motivo &nbsp; [Reservar]</div>
+<div class="s">Elegí tu estilo</div><div><span class="p">Fade</span><span class="p">Clásico</span><span class="p">Barba</span><span class="p">…</span></div>
+<div class="r"><div class="b x" style="height:60px"></div><div class="b x" style="height:60px"></div></div>
+<div class="n"><span>Inicio</span><span>Reservar</span><span>Asist.</span><span>Turnos</span><span>Cuenta</span></div></div></div>
+
+<div><h2>B. Reservar · día y hora</h2><div class="tel">
+<div class="t">Reservar turno</div>
+<div class="r"><div class="b" style="padding:2px"></div><div class="b" style="padding:2px"></div><div class="b" style="padding:2px"></div><div class="d" style="padding:2px"></div></div>
+<div class="s">3. Día y hora &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Atrás</div>
+<div class="r"><div class="b">Vie<br>23</div><div class="d">Sáb<br>24<br>lleno</div><div class="d" style="color:#aaa">Dom<br>25<br>cerrado</div><div class="b">Lun<br>26</div></div>
+<div class="s">Mañana</div>
+<div class="r"><div class="b">09:00</div><div class="b">09:30</div><div class="b">10:00</div></div>
+<div class="r"><div class="b">10:30</div><div class="d k">11:00 🔔</div><div></div></div>
+<div class="s">Tarde</div>
+<div class="r"><div class="b">15:00</div><div class="b">15:30</div><div></div></div>
+<div class="d">Tachado = ocupado → "Avisarme si se libera"</div>
+<div class="n"><span>Inicio</span><span>Reservar</span><span>Asist.</span><span>Turnos</span><span>Cuenta</span></div></div></div>
+
+<div><h2>C. Cuenta · Mis puntos</h2><div class="tel">
+<div style="text-align:center"><div class="b" style="width:54px;height:54px;border-radius:30px;margin:auto"></div><div class="t">Nombre</div><div class="s">Cliente</div></div>
+<div class="s">Mis puntos</div>
+<div class="b" style="height:76px">[ícono] Nivel <b>Silver</b> &nbsp;&nbsp;&nbsp; <b>620</b> pts<br><div style="border:1px solid #888;height:8px;margin:8px 0"><div style="width:12%;height:8px;background:#888"></div></div>Te faltan 880 para Gold</div>
+<div class="r"><div class="b" style="height:40px">Recompensas</div><div class="b" style="height:40px">Logros</div></div>
+<div class="r"><div class="b" style="height:40px">Mi historial</div><div class="b" style="height:40px">Lista de espera</div></div>
+<div class="s">Datos personales</div><div class="d">campo</div><div class="d">campo</div>
+<div class="n"><span>Inicio</span><span>Reservar</span><span>Asist.</span><span>Turnos</span><span>Cuenta</span></div></div></div>
+
+<div><h2>D. Inicio (admin)</h2><div class="tel">
+<div class="t">Resumen del local</div>
+<div class="r"><div class="b">3<br>turnos hoy</div><div class="b">1<br>pendientes</div></div>
+<div class="r"><div class="b">$<br>semana</div><div class="b">$<br>mes</div></div>
+<div class="b" style="height:110px">Turnos últimos 14 días<div style="display:flex;align-items:flex-end;gap:4px;height:70px;margin-top:6px">
+<div style="flex:1;height:20%;background:#999"></div><div style="flex:1;height:60%;background:#999"></div><div style="flex:1;height:40%;background:#999"></div><div style="flex:1;height:90%;background:#999"></div><div style="flex:1;height:30%;background:#999"></div><div style="flex:1;height:70%;background:#999"></div><div style="flex:1;height:50%;background:#999"></div></div></div>
+<div class="b">Servicios más pedidos ▬▬▬▬▬ 8</div>
+<div class="b">Barberos con más turnos ▬▬▬ 6</div>
+<div class="n"><span>Inicio</span><span>Admin</span><span>Cuenta</span></div></div></div>
+</div></body></html>
